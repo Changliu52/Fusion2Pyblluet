@@ -75,3 +75,5 @@ Here are two I met with but not yet write a better notification. Get avoid of ne
 2. 
 
 ![](./Errors/2.PNG)
+
+I need to select all the subcomponents. Combine them. Export them using 'derive' as a new component. Then import all 7 components and add the joints again.
