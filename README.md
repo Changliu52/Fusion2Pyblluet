@@ -76,4 +76,6 @@ Here are two I met with but not yet write a better notification. Get avoid of ne
 
 ![](./Errors/2.PNG)
 
+### Notes for preparing fusion model
+
 I need to select all the subcomponents. Combine them. Export them using 'derive' as a new component. Then import all 7 components and add the joints again.
