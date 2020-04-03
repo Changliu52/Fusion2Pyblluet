@@ -76,8 +76,15 @@ Here are two I met with but not yet write a better notification. Get avoid of ne
 
 ![](./Errors/2.PNG)
 
-### Notes for preparing fusion model
+### Steps for preparing fusion model for URDF export
 
-* I need to select all the subcomponents. Combine them. Export them using 'derive' as a new component. Then import all 7 components and add the joints again.
-
-* To get the dae from stl use https://products.aspose.app/3d/conversion/stl-to-dae.
+* Each link is now stored in its own component within the reformed folder. Changes and edits should be made to these rather than editing the complete model. All components in the complete model are linked to these submodels. This makes it much easier when exporting to URDF.
+*For each link, use the combine tool under modify to merge all bodies into a single component.
+*Click on that new component and use derive under the create tab. Make sure to click the option to derive a "One Component design". Save this new model in the URDF folder.
+*The combined body can now be deleted.
+*Repeat this for each of the 7 links until you now have all of the links as single component files.
+*Import all the single component files into the URDF model. 
+*Unlink all the components.
+*The joints can now be set and joint limits can also be defined.
+*The URDF can now be run. Be sure to use the version from this GIT to ensure the file directories are set to enable usage in unity.
+* A further step is needed to get the dae from stl. Use https://products.aspose.app/3d/conversion/stl-to-dae.
