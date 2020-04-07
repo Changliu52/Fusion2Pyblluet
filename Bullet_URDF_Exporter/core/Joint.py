@@ -64,8 +64,9 @@ class Joint:
             limit.attrib = {'upper': str(self.upper_limit), 'lower': str(self.lower_limit),
                             'effort': '100', 'velocity': '100'}
             
-        if self.type == 'continuous:    # If the joint is left as continous then we change it to revolute with +-180 range
+        elif self.type == 'continuous':    # If the joint is left as continous then we change it to revolute with +-180 range
             self.type = 'revolute'
+            joint.attrib = {'name':self.name, 'type':self.type}
             limit = SubElement(joint, 'limit')
             limit.attrib = {'upper': str(3.14159), 'lower': str(-3.14159),
                             'effort': '100', 'velocity': '100'}
