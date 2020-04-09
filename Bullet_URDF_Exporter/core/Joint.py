@@ -78,6 +78,7 @@ class Joint:
         Generate the tran_xml and hold it by self.tran_xml
         
         
+        
         Notes
         -----------
         mechanicalTransmission: 1

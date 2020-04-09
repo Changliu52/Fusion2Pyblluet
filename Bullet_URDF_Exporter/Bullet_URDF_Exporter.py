@@ -44,7 +44,7 @@ def run(context):
 
         # set the names        
         package_name = 'fusion2urdf'
-        robot_name = root.name.split()[0]
+        robot_name = "Extend_Arm"#root.name.split()[0]
         save_dir = utils.file_dialog(ui)
         if save_dir == False:
             ui.messageBox('Fusion2URDF was canceled', title)

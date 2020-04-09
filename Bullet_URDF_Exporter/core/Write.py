@@ -78,7 +78,18 @@ def write_joint_tran_urdf(joints_dict, repo, links_xyz_dict, file_name):
     """
     
     with open(file_name, mode='a') as f:
-        for j in joints_dict:
+        
+        # Make the world to base link
+        
+        joint = Joint.Joint(name=('base_joint'), joint_type = "fixed", xyz=[0, 0, 1.2], \
+        axis="", parent="world", child="base_link", \
+        upper_limit="", lower_limit="")
+        joint.make_joint_xml()
+        joint.make_transmission_xml()
+        f.write(joint.joint_xml)
+        f.write('\n')
+            
+        for link_num, j in enumerate(joints_dict):
             parent = joints_dict[j]['parent']
             child = joints_dict[j]['child']
             joint_type = joints_dict[j]['type']
@@ -96,7 +107,7 @@ to swap component1<=>component2"
                 % (j, parent, child, parent, child), "Error!")
                 quit()
                 
-            joint = Joint.Joint(name=j, joint_type = joint_type, xyz=xyz, \
+            joint = Joint.Joint(name=('joint' + str(link_num)), joint_type = joint_type, xyz=xyz, \
             axis=joints_dict[j]['axis'], parent=parent, child=child, \
             upper_limit=upper_limit, lower_limit=lower_limit)
             joint.make_joint_xml()
@@ -113,11 +124,23 @@ def write_urdf(joints_dict, links_xyz_dict, inertial_dict, package_name, save_di
     with open(file_name, mode='w') as f:
         f.write('<?xml version="1.0" ?>\n')
         f.write('<robot name="{}">\n'.format(robot_name))
+
+        
+        f.write('<!--To enable controller in Gazebo-->\n')
+        f.write('  <gazebo>\n')
+        f.write('    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">\n')
+        f.write('      <robotNamespace>extendArm_Gazebo</robotNamespace>\n')
+        f.write('      <legacyModeNS>true</legacyModeNS>\n')
+        f.write('    </plugin>\n')
+        f.write('  </gazebo>\n')
         f.write('\n')
+        
         f.write('<material name="silver">\n')
         f.write('  <color rgba="0.700 0.700 0.700 1.000"/>\n')
         f.write('</material>\n')
         f.write('\n')
+        
+        f.write('<link name="world"/>\n')
 
     write_link_urdf(joints_dict, repo, links_xyz_dict, file_name, inertial_dict)
     write_joint_tran_urdf(joints_dict, repo, links_xyz_dict, file_name)
