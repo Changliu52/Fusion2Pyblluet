@@ -92,7 +92,7 @@ Here are two I met with but not yet write a better notification. Get avoid of ne
 
 * Unlink all the components.
 
-* The joints can now be set and joint limits can also be defined.
+* The joints can now be set and joint limits can also be defined. (make sure you add the a dummy_base_joint connecting world to the base_link, and add a dummy_end_joint fixed to the last link)
 
 * The URDF can now be run. Be sure to use the version from this GIT to ensure the file directories are set to enable usage in unity.
 
