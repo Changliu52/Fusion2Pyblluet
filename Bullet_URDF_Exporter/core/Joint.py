@@ -64,11 +64,19 @@ class Joint:
             limit.attrib = {'upper': str(self.upper_limit), 'lower': str(self.lower_limit),
                             'effort': '100', 'velocity': '100'}
             
+        elif self.type == 'continuous':    # If the joint is left as continous then we change it to revolute with +-180 range
+            self.type = 'revolute'
+            joint.attrib = {'name':self.name, 'type':self.type}
+            limit = SubElement(joint, 'limit')
+            limit.attrib = {'upper': str(3.14159), 'lower': str(-3.14159),
+                            'effort': '100', 'velocity': '100'}
+            
         self.joint_xml = "\n".join(utils.prettify(joint).split("\n")[1:])
 
     def make_transmission_xml(self):
         """
         Generate the tran_xml and hold it by self.tran_xml
+        
         
         
         Notes
@@ -86,13 +94,15 @@ class Joint:
         
         joint = SubElement(tran, 'joint')
         joint.attrib = {'name':self.name}
-        hardwareInterface_joint = SubElement(joint, 'hardwareInterface')
-        hardwareInterface_joint.text = 'PositionJointInterface'
+        hardwareInterface_joint = SubElement(joint, 'hardwareInterface') 
+        #hardwareInterface_joint.text = 'PositionJointInterface'
+        hardwareInterface_joint.text = 'hardware_interface/EffortJointInterface'
         
         actuator = SubElement(tran, 'actuator')
         actuator.attrib = {'name':self.name + '_actr'}
         hardwareInterface_actr = SubElement(actuator, 'hardwareInterface')
-        hardwareInterface_actr.text = 'PositionJointInterface'
+        #hardwareInterface_actr.text = 'PositionJointInterface'
+        hardwareInterface_actr.text = 'hardware_interface/EffortJointInterface'
         mechanicalReduction = SubElement(actuator, 'mechanicalReduction')
         mechanicalReduction.text = '1'
         
