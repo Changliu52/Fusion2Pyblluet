@@ -120,7 +120,7 @@ to swap component1<=>component2"
 
 def write_urdf(joints_dict, links_xyz_dict, inertial_dict, package_name, save_dir, robot_name):
     file_name = save_dir + '/' + robot_name + '.urdf'  # the name of urdf file
-    repo = 'package://meshes/'  # for unity path finder 
+    repo = 'package://extendArm_Gazebo/urdf/dae_v2.1'  # for unity path finder 
     with open(file_name, mode='w') as f:
         f.write('<?xml version="1.0" ?>\n')
         f.write('<robot name="{}">\n'.format(robot_name))
